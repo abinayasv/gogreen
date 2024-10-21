@@ -74,9 +74,9 @@ To add the steps for GitHub usage to your **GO Green** project, you can follow t
 
 <HTML>
     <h1>INPUT</h1>
-    <imgsrc="Screenshot 2024-10-21 212709.png"/>
+    <imgsrc="https://github.com/abinayasv/gogreen/blob/694ad0ef6bad31e21295f05e1799c39dd7f85844/Screenshot%202024-10-21%20212709.png"/>
     <h2>OUTPUT</h2>
-    <imgsrc="Screenshot 2024-10-21 212728.png"/>
+    <imgsrc="https://github.com/abinayasv/gogreen/blob/66e2aa8eb006e9c45321e55e21298bdeb7a63fbe/Screenshot%202024-10-21%20212728.png"/>
     
 
 </html>

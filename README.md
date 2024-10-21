@@ -69,3 +69,12 @@ To add the steps for GitHub usage to your **GO Green** project, you can follow t
 
 5. **Modify & Contribute**  
    Feel free to fork the repository, make your changes, and submit pull requests to contribute.
+
+   OUTPUT:
+
+<HTML>
+    <h1>INPUT</h1>
+    <imgsrc="![image](https://github.com/user-attachments/assets/e3016bb7-e16b-445e-bc92-e1926d964d1d)"/>
+    
+
+</html>

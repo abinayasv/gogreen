@@ -1,0 +1,41 @@
+[debug] [2024-10-21T15:09:18.816Z] ----------------------------------------------------------------------
+[debug] [2024-10-21T15:09:18.819Z] Command:       /nix/store/aspnwxp3q1wvg8jd1zg0295zmhr3lkb3-nodejs-18.19.1/bin/node /nix/store/kdrr9n4z2kdnzn7w7p1xsys37qwl8p4a-firebase-tools-13.22.0/lib/node_modules/firebase-tools/lib/bin/firebase.js init hosting
+[debug] [2024-10-21T15:09:18.820Z] CLI Version:   13.22.0
+[debug] [2024-10-21T15:09:18.820Z] Platform:      linux
+[debug] [2024-10-21T15:09:18.820Z] Node Version:  v18.19.1
+[debug] [2024-10-21T15:09:18.820Z] Time:          Mon Oct 21 2024 15:09:18 GMT+0000 (Coordinated Universal Time)
+[debug] [2024-10-21T15:09:18.821Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-10-21T15:09:18.828Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-21T15:09:18.829Z] > authorizing via signed-in user (abinayadevisv2001@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/user/gogreen
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2024-10-21T15:09:57.211Z] Checked if tokens are valid: true, expires at: 1729526818913
+[debug] [2024-10-21T15:09:57.212Z] Checked if tokens are valid: true, expires at: 1729526818913
+[debug] [2024-10-21T15:09:57.214Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2024-10-21T15:09:57.214Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"abi","name":"gogreen"}
+[debug] [2024-10-21T15:09:58.036Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 400
+[debug] [2024-10-21T15:09:58.037Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"error":{"code":400,"message":"field [project_id] has issue [project_id must be at least 6 characters long]","status":"INVALID_ARGUMENT","details":[{"@type":"type.googleapis.com/google.rpc.BadRequest","fieldViolations":[{"field":"project_id","description":"project_id must be at least 6 characters long"}]},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"url":"https://cloud.google.com/resource-manager/reference/rest/v1/projects"}]}]}}
+[debug] [2024-10-21T15:09:58.054Z] FirebaseError: HTTP Error: 400, field [project_id] has issue [project_id must be at least 6 characters long]
+    at responseToError (/nix/store/kdrr9n4z2kdnzn7w7p1xsys37qwl8p4a-firebase-tools-13.22.0/lib/node_modules/firebase-tools/lib/responseToError.js:49:12)
+    at RetryOperation._fn (/nix/store/kdrr9n4z2kdnzn7w7p1xsys37qwl8p4a-firebase-tools-13.22.0/lib/node_modules/firebase-tools/lib/apiv2.js:312:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] 
+[error] Error: Failed to create project. See firebase-debug.log for more info.

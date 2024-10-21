@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organic Farming Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Organic Farming Guide</h1>
+    <form id="farming-form">
+        <label for="Soil">Soil Type:</label>
+        <select id="Soil" name="Soil" required>
+            <option value="select">Select Soil Type</option>
+            <option value="Loamy">Loamy</option>
+            <option value="Gravelly">Gravelly</option>
+        </select>
+        
+        <label for="climate">Climate:</label>
+        <select id="climate" name="climate" required>
+            <option value="Select">Select Climate</option>
+            <option value="Dry">Dry</option>
+            <option value="Cold">Cold</option>
+            <option value="Temperate">Temperate</option>
+        </select>
+        
+        <button type="submit">Get Recommendations</button>
+    </form>
+    
+    <div id="result"></div>
+    
+    <script>
+        // Mock function for cosine similarity calculation
+        function cosineSimilarity(vecA, vecB) {
+            let dotProduct = 0;
+            let magnitudeA = 0;
+            let magnitudeB = 0;
+
+            for (let i = 0; i < vecA.length; i++) {
+                dotProduct += vecA[i] * vecB[i];
+                magnitudeA += vecA[i] * vecA[i];
+                magnitudeB += vecB[i] * vecB[i];
+            }
+
+            return dotProduct / (Math.sqrt(magnitudeA) * Math.sqrt(magnitudeB));
+        }
+
+        // Mock database of farming recommendations with embeddings
+        const farmingDatabase = [
+        {
+        "Soil": "Chalky",
+        "climate": "Warm and Dry",
+        "embedding": [-0.1, 0.5, 0.3, -0.2, 0.4, -0.7, 0.3, -0.5, 0.2, 0.1, -0.3, 0.2, 0.6, 0.3, 0.2, -0.1, 0.5, -0.4, -0.3, 0.4],
+        "recommendation": "Chalky soils tend to be alkaline and can cause nutrient deficiencies in plants. In warm and dry climates, grow crops like beets, cabbage, and lavender that can tolerate high pH. Apply organic matter and fertilizers rich in nutrients like iron and magnesium to improve soil fertility."
+    },
+    {
+        "Soil": "Clay",
+        "climate": "Humid",
+        "embedding": [-0.4, 0.1, 0.5, -0.3, 0.2, 0.6, -0.5, -0.2, 0.4, 0.3, -0.1, 0.2, 0.5, -0.3, 0.1, -0.4, 0.2, 0.1, 0.6, -0.5],
+        "recommendation": "Clay soils retain water well. In humid climates, consider growing rice, which thrives in such conditions. Improve drainage with organic matter and consider cover crops to enhance soil structure."
+    },
+    {
+        "Soil": "Sandy",
+        "climate": "Hot and Dry",
+        "embedding": [0.6, -0.2, 0.7, 0.1, 0.5, -0.3, 0.2, 0.4, 0.7, -0.1, -0.2, 0.4, -0.3, 0.5, -0.6, 0.3, 0.2, -0.4, 0.1, 0.5],
+        "recommendation": "Sandy soils drain quickly and often lack nutrients. In hot and dry climates, grow drought-tolerant crops like melons, tomatoes, and peppers. Apply organic mulch to retain moisture and nutrients."
+    },
+    {
+        "Soil": "Loam",
+        "climate": "Moderate and Temperate",
+        "embedding": [0.3, 0.4, -0.5, 0.2, 0.1, -0.2, 0.4, 0.5, -0.3, 0.6, 0.3, -0.1, 0.2, -0.4, 0.5, 0.3, -0.2, 0.1, -0.5, 0.6],
+        "recommendation": "Loam soils are ideal for a variety of plants due to their nutrient content and good drainage. In moderate climates, grow crops like carrots, corn, and spinach. Maintain soil health by adding organic compost regularly."
+    }
+            // Additional recommendations...
+        ];
+
+        // Handle form submission
+        document.getElementById('farming-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const soil = document.getElementById('Soil').value;
+            const climate = document.getElementById('climate').value;
+
+            // Clear previous result
+            document.getElementById('result').innerHTML = "Loading...";
+
+            // Create a mock current embedding based on user input (this would come from a model in a real case)
+            const userEmbedding = soil === "Chalky" && climate === "Warm and Dry" ? [-0.1, 0.5, 0.3, -0.2] : [-0.4, 0.1, 0.5, -0.3];
+
+            let bestMatch = null;
+            let highestSimilarity = -1;
+
+            // Calculate cosine similarity for each stored entry in the database
+            for (const entry of farmingDatabase) {
+                const similarity = cosineSimilarity(userEmbedding, entry.embedding);
+                if (similarity > highestSimilarity) {
+                    highestSimilarity = similarity;
+                    bestMatch = entry;
+                }
+            }
+
+            // Display the best recommendation
+            if (bestMatch) {
+                document.getElementById('result').innerHTML = `
+                    <pre>Best Match Soil: ${bestMatch.Soil}</pre>
+                    <pre>Climate: ${bestMatch.climate}</pre>
+                    <pre>Recommendation: ${bestMatch.recommendation}</pre>
+                `;
+            } else {
+                document.getElementById('result').innerHTML = "No matching recommendations found.";
+            }
+        });
+    </script>
+</body>
+</html>
